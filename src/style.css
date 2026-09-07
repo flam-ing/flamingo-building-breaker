@@ -1,0 +1,296 @@
+@font-face {
+  font-family: BladePixel;
+  src: url("/fonts/Galmuri11.woff2") format("woff2");
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #182b31;
+  color: #fff;
+  font-family: BladePixel, "Malgun Gothic", sans-serif;
+}
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+}
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+button:focus-visible,
+canvas:focus-visible {
+  outline: 3px solid #ffe897;
+  outline-offset: 4px;
+}
+#game-shell {
+  width: min(100vw, 1280px);
+  aspect-ratio: 16/9;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #94bce0;
+}
+#battle {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+#menus {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+#menus > * {
+  pointer-events: auto;
+}
+#settings {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  right: 1.5%;
+  top: 1.5%;
+  z-index: 4;
+}
+#settings button {
+  min-height: 31px;
+  padding: 6px 9px;
+  background: #203740e8;
+  border: 1px solid #bca36d;
+  font-size: 11px;
+}
+#settings button:hover {
+  background: #3b5258;
+}
+.menu {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.title-panel {
+  position: absolute;
+  right: 7%;
+  top: 19%;
+  width: 41%;
+  text-align: right;
+}
+.serial {
+  font-size: clamp(9px, 1.1vw, 15px);
+  letter-spacing: 3px;
+  color: #ffd06e;
+  margin: 0 0 14px;
+}
+.title-panel h1 {
+  font-size: clamp(31px, 4.7vw, 63px);
+  line-height: 1.32;
+  margin: 0 0 19px;
+  letter-spacing: -3px;
+  color: #fff1c5;
+  text-shadow: 4px 5px 0 #3a3940;
+}
+.title-panel p {
+  font-size: clamp(10px, 1.3vw, 17px);
+  line-height: 1.9;
+  color: #d4e2dc;
+}
+.buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.title-panel .buttons {
+  justify-content: flex-end;
+}
+.start-button {
+  background: #e6a033;
+  color: #203340;
+  border: 3px solid #fff0c7;
+  box-shadow: 4px 5px 0 #1e313e;
+  min-height: 46px;
+  padding: 12px 23px;
+  font-size: clamp(11px, 1.3vw, 17px);
+  transform: skew(-4deg);
+}
+.start-button:hover {
+  background: #f4bc56;
+}
+.start-button.secondary {
+  background: #344e57;
+  color: #f0e7d4;
+}
+.edition {
+  position: absolute;
+  left: 5%;
+  bottom: 5%;
+  font-size: clamp(8px, 1vw, 13px);
+  color: #b6d3d9;
+  letter-spacing: 2px;
+}
+.shade {
+  background: #102a38ed;
+  padding: 40px;
+}
+.shade h2 {
+  font-size: clamp(23px, 3vw, 41px);
+  color: #ffe2a5;
+  line-height: 1.4;
+  margin: 12px 0 16px;
+}
+.shade p {
+  font-size: clamp(10px, 1.3vw, 16px);
+  color: #cfdddd;
+  line-height: 1.8;
+  max-width: 720px;
+  margin: 8px;
+}
+.instructions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 45px;
+  text-align: left;
+  margin: 23px 0;
+  font-size: clamp(10px, 1.3vw, 17px);
+}
+.instructions kbd {
+  font: inherit;
+  color: #ffc75c;
+  display: inline-block;
+  min-width: 130px;
+}
+.results {
+  display: flex;
+  gap: 60px;
+  margin: 20px 0;
+}
+.results strong {
+  display: block;
+  font-size: clamp(23px, 3vw, 38px);
+  color: #ffe6af;
+}
+.results small {
+  font-size: 11px;
+  color: #b4c9ce;
+}
+.stage-stamp {
+  font-size: clamp(12px, 1.5vw, 19px);
+  color: #e9a858;
+  letter-spacing: 4px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+#touch-input {
+  display: none;
+  position: absolute;
+  bottom: 17%;
+  left: 2%;
+  right: 2%;
+  justify-content: space-between;
+  pointer-events: none;
+}
+#touch-input button {
+  pointer-events: auto;
+  touch-action: none;
+  min-height: 43px;
+  padding: 7px 13px;
+  background: #163743ce;
+  border: 2px solid #b7bda2;
+  font-size: 11px;
+}
+#touch-input button:active {
+  background: #d18436;
+}
+body.in-battle #touch-input {
+  display: flex;
+}
+@media (min-width: 900px) and (pointer: fine) {
+  body.in-battle #touch-input {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  #settings {
+    right: 1%;
+    gap: 3px;
+  }
+  #settings button {
+    min-height: 23px;
+    font-size: 8px;
+    padding: 3px 5px;
+  }
+  .title-panel {
+    top: 16%;
+    right: 6%;
+    width: 45%;
+  }
+  .title-panel h1 {
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .title-panel p {
+    margin: 5px 0;
+    line-height: 1.6;
+  }
+  .serial {
+    margin-bottom: 7px;
+    letter-spacing: 1px;
+  }
+  .buttons {
+    margin-top: 10px;
+    gap: 8px;
+  }
+  .start-button {
+    min-height: 32px;
+    padding: 7px 12px;
+    border-width: 2px;
+  }
+  .shade {
+    padding: 20px;
+  }
+  .shade h2 {
+    margin: 8px;
+  }
+  .shade p {
+    margin: 4px;
+  }
+  .instructions {
+    gap: 10px 20px;
+    margin: 10px;
+  }
+  .instructions kbd {
+    min-width: 88px;
+  }
+  .results {
+    gap: 24px;
+    margin: 8px;
+  }
+  .results small {
+    font-size: 9px;
+  }
+  #touch-input button {
+    font-size: 8px;
+    min-height: 29px;
+    padding: 5px 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto;
+  }
+}
