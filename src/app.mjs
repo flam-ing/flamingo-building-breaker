@@ -228,7 +228,7 @@ try {
   menus.innerHTML =
     '<section class="menu shade"><h2>현장 준비 중</h2><p>검객과 도시 원화를 불러오고 있습니다.</p></section>';
   const [hero, walls, city] = await Promise.all(
-    ["/art/swordsman.png", "/art/facades.png", "/art/cityback.png"].map(load),
+    ["./art/swordsman.png", "./art/facades.png", "./art/cityback.png"].map(load),
   );
   await document.fonts.load("16px BladePixel");
   painter = makePainter(ctx, { hero, walls, city }, createCanvas);

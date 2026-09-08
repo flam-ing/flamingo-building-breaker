@@ -1,6 +1,6 @@
 @font-face {
   font-family: BladePixel;
-  src: url("/fonts/Galmuri11.woff2") format("woff2");
+  src: url("./fonts/Galmuri11.woff2") format("woff2");
   font-display: swap;
 }
 * {
